@@ -1,0 +1,24 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>Super Sekrit</title>
+</head>
+
+<body>
+<h1>Super Sekrit</h1>
+
+<dl>
+  <dt>The Message</dt>
+  <dd><textarea id="plaintext" onchange="window.docrypt()"></textarea></dd>
+
+  <dt>Password</dt>
+  <dd><input id="password"/></dd>
+
+  <dt>Sekrit</dt>
+  <dd><textarea id="crypttext" onchange="window.douncrypt()"></textarea></dd>
+</dl>
+
+</body>
+<script src="jquery-1.5.min.js"></script>
+<script src="sjcl.js"></script>
+<script src="sekritweb.js"></script>
+</html>
