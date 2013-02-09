@@ -18,13 +18,19 @@ web/sekritweb.js: src/sekritweb.coffee
 watch:
 	coffee --watch --output web --compile src/sekritweb.coffee
 
+test-watch: libsync 
+	npm install testem
+	mkdir -p test
+	coffee --watch --bare --output test --compile src/sekritweb.coffee test-src/*.coffee &
+	cd test; ../node_modules/.bin/testem -g
+
 libsync: 
 	rsync -av lib/*.js lib/bootstrap chrome
 	rsync -av lib/*.js lib/bootstrap web
+	rsync -av lib/*.js lib/bootstrap test
 
 clean:
-	rm web/*.js
-	rm chrome/*.js
+	for dir in web chrome test; do rm -r $$dir/*.js $$dir/bootstrap; done
 
 config:
 	:
