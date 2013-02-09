@@ -43,10 +43,10 @@ $ ->
         ['.span3.hidden-phone']
         ['%form.span6'
           ['%fieldset'
-            ['%legend', 'Create new Sekrit Cirkle ...']
+            ['%legend', 'Create new Cirkle ...']
             ['%input#friendly', {
               type:'text'
-              placeholder:'Enter name here (optional)'
+              placeholder:'Enter name here (optional) ...'
               }]
             ['%button#create', {type:'submit', class:'btn'}, 'Create']]] ]]
 
@@ -73,8 +73,24 @@ $ ->
       cirkle = new Cipher cirkleString
       [
         ['.row'
-          ['%h2.span12', friendly]
-          ]]
+          ['%h2.span12', "#{friendly} Cirkle"]]
+        ['.row'
+          ['%form.span6'
+            ['%fieldset'
+              ['%legend', 'Create a Sekrit']
+              ['%textarea#msg-in.span6', {
+                placeholder:'Type your message here ...' }]
+              ['.well#sekrit-out']]]
+          ['%form.span6'
+            ['%fieldset'
+              ['%legend', 'Read a Sekrit']
+              ['%textarea#sekrit-in.span6', {
+                placeholder:'Paste a sekrit here ...' }]
+              ['.well#msg-out']]]]]
+    $('#msg-in').keypress ->
+      $('#sekrit-out').text cirkle.encrypt $(@).val()
+    $('#sekrit-in').keypress ->
+      $('#msg-out').text cirkle.decrypt $(@).val()
 
 
   cirkleString = fromHash()
