@@ -13,6 +13,9 @@ Cipher = ( (password) ->
 
   sekrit2crypt = (s) ->
     [iv, salt, ct] = fromWebsafe(s).split ','
+    assert ->   iv.length == 22
+    assert -> salt.length == 11
+    assert ->   ct.length >= 11
     "{iv:\"#{iv}\",salt:\"#{salt}\",ct:\"#{ct}\"}"
 
   crypt2sekrit = (c) ->
@@ -25,11 +28,30 @@ Cipher = ( (password) ->
     crypt2sekrit sjcl.encrypt password, plaintext
 
   @decrypt = (ciphertext) ->
+    require -> ciphertext.length >= 46
     sjcl.decrypt password, sekrit2crypt ciphertext
 
   null
 )
 #END Cipher class
+
+if window.location.href.slice(0,5) == 'file:'
+  console.log 'Test Environment. Assertions enabled'
+
+  assert = (predicate) ->
+    if !predicate()
+      alert "Assertion failed. #{predicate}"
+
+  require = (predicate) ->
+    if !predicate()
+      alert "Precondition failed. #{predicate}"
+
+else
+  #Production Environment, Assertions disabled
+
+  assert  = (predicate) ->
+  require = (predicate) ->
+
 
 CIRKLE_CIPHER = new Cipher 'supersekrit'
 
@@ -89,8 +111,11 @@ $ ->
               ['.well#msg-out']]]]]
     $('#msg-in').keypress ->
       $('#sekrit-out').text cirkle.encrypt $(@).val()
-    $('#sekrit-in').keypress ->
-      $('#msg-out').text cirkle.decrypt $(@).val()
+    $sekritIn = $('#sekrit-in')
+    #$sekritIn.keypress ->
+    $sekritIn.on 'paste', ->
+      afterTick ->
+        $('#msg-out').text cirkle.decrypt $sekritIn.val()
 
 
   cirkleString = fromHash()
@@ -116,7 +141,7 @@ createCirkle = (friendly) ->
   CIRKLE_CIPHER.encrypt "#{CIRKLE_PREFIX}|#{friendly}"
 
 
-
+afterTick = (func) ->  setTimeout func, 10
 
 
 
