@@ -28,6 +28,7 @@ Cipher = ( (password) ->
     crypt2sekrit sjcl.encrypt password, plaintext
 
   @decrypt = (ciphertext) ->
+    require -> ciphertext
     require -> ciphertext.length >= 46
     sjcl.decrypt password, sekrit2crypt ciphertext
 
@@ -40,11 +41,11 @@ if window.location.href.slice(0,5) == 'file:'
 
   assert = (predicate) ->
     if !predicate()
-      alert "Assertion failed. #{predicate}"
+      throw "Assertion failed. #{predicate}"
 
   require = (predicate) ->
     if !predicate()
-      alert "Precondition failed. #{predicate}"
+      throw "Precondition failed. #{predicate}"
 
 else
   #Production Environment, Assertions disabled
@@ -58,78 +59,77 @@ CIRKLE_CIPHER = new Cipher 'supersekrit'
 $ ->
   $content = $ '#content'
 
-  dontHaveCirkle = ->
-    $content.empty()
-    $content.haml [
-      ['.row'
-        ['.span3.hidden-phone']
-        ['%form.span6'
-          ['%fieldset'
-            ['%legend', 'Create new Cirkle ...']
-            ['%input#friendly', {
-              type:'text'
-              placeholder:'Enter name here (optional) ...'
-              }]
-            ['%button#create', {type:'submit', class:'btn'}, 'Create']]] ]]
-
-    $('#create').click ->
-      try
-        friendly = $('#friendly').val() || 'Cirkle'
-        window.location.hash = '#' + (createCirkle friendly)
-      catch e
-        alert e
-
-  haveCirkle = (cirkleString) ->
-
-    [prefix,friendly] = (CIRKLE_CIPHER.decrypt cirkleString).split '|'
-    $content.empty()
-
-    $content.haml if prefix != CIRKLE_PREFIX
-      [
-        ['.row'
-          ['%h2.span12', 'Bad Circle']
-          ['%p.span12', """
-                       Sorry \"#{cirkle}\" is not a valid cirkle.
-                               Did you copy it properly?""" ]]]
-    else
-      cirkle = new Cipher cirkleString
-      [
-        ['.row'
-          ['%h2.span12', "#{friendly} Cirkle"]]
-        ['.row'
-          ['%form.span6'
-            ['%fieldset'
-              ['%legend', 'Create a Sekrit']
-              ['%textarea#msg-in.span6', {
-                placeholder:'Type your message here ...' }]
-              ['.well#sekrit-out']]]
-          ['%form.span6'
-            ['%fieldset'
-              ['%legend', 'Read a Sekrit']
-              ['%textarea#sekrit-in.span6', {
-                placeholder:'Paste a sekrit here ...' }]
-              ['.well#msg-out']]]]]
-    $('#msg-in').keypress ->
-      $('#sekrit-out').text cirkle.encrypt $(@).val()
-    $sekritIn = $('#sekrit-in')
-    #$sekritIn.keypress ->
-    $sekritIn.on 'paste', ->
-      afterTick ->
-        $('#msg-out').text cirkle.decrypt $sekritIn.val()
-
-
   cirkleString = fromHash()
 
   if !cirkleString
-    dontHaveCirkle()
+    dontHaveCirkle $content
   else
-    haveCirkle cirkleString
+    haveCirkle $content, cirkleString
 
   $(window).on 'hashchange', ->
-    haveCirkle fromHash()
+    haveCirkle $content, fromHash()
+
+dontHaveCirkle = ($content) ->
+  $content.empty()
+  $content.haml [
+    ['.row'
+      ['.span3.hidden-phone']
+      ['%form.span6'
+        ['%fieldset'
+          ['%legend', 'Create new Cirkle ...']
+          ['%input#friendly', {
+            type:'text'
+            placeholder:'Enter name here (optional) ...'
+            }]
+          ['%button#create', {type:'submit', class:'btn'}, 'Create']]] ]]
+
+  $('#create').click ->
+    try
+      friendly = $('#friendly').val() || 'Cirkle'
+      window.location.hash = '#' + (createCirkle friendly)
+    catch e
+      alert e
 
 
+haveCirkle = ($content, cirkleString) ->
 
+  [prefix,friendly] = (CIRKLE_CIPHER.decrypt cirkleString).split '|'
+  $content.empty()
+
+  $content.haml if prefix != CIRKLE_PREFIX
+    [
+      ['.row'
+        ['%h2.span12', 'Bad Circle']
+        ['%p.span12', """
+                     Sorry \"#{cirkle}\" is not a valid cirkle.
+                             Did you copy it properly?""" ]]]
+  else
+    cirkle = new Cipher cirkleString
+    [
+      ['.row'
+        ['%h2.span12', "#{friendly} Cirkle"]]
+      ['.row'
+        ['%form.span6'
+          ['%fieldset'
+            ['%legend', 'Create a Sekrit']
+            ['%textarea#msg-in.span6', {
+              placeholder:'Type your message here ...' }]
+            ['.well#sekrit-out']]]
+        ['%form.span6'
+          ['%fieldset'
+            ['%legend', 'Read a Sekrit']
+            ['%textarea#sekrit-in.span6', {
+              placeholder:'Paste a sekrit here ...' }]
+            ['.well#msg-out']]]]]
+  $msgIn = $ '#msg-in'
+  $msgIn.keypress ->
+    afterTick ->
+      $('#sekrit-out').text cirkle.encrypt $msgIn.val()
+  $sekritIn = $ '#sekrit-in'
+  #$sekritIn.keypress ->
+  $sekritIn.on 'paste', ->
+    afterTick ->
+      $('#msg-out').text cirkle.decrypt $sekritIn.val()
 
 
 #get string following hash
@@ -141,7 +141,7 @@ createCirkle = (friendly) ->
   CIRKLE_CIPHER.encrypt "#{CIRKLE_PREFIX}|#{friendly}"
 
 
-afterTick = (func) ->  setTimeout func, 10
+afterTick = (func) ->  setTimeout func, 0
 
 
 

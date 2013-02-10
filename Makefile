@@ -18,11 +18,13 @@ web/sekritweb.js: src/sekritweb.coffee
 watch:
 	coffee --watch --output web --compile src/sekritweb.coffee
 
-test-watch: libsync 
-	npm install testem
+test-watch: libsync node_modules/testem
 	mkdir -p test
 	coffee --watch --bare --output test --compile src/sekritweb.coffee test-src/*.coffee &
 	cd test; ../node_modules/.bin/testem -g
+
+node_modules/testem:
+	npm install testem
 
 libsync: 
 	rsync -av lib/*.js lib/bootstrap chrome
