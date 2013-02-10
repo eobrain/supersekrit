@@ -1,0 +1,25 @@
+!!! 5
+%html
+  %head
+    %title Super Sekrit
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    %link(href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen")
+    %link(href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet")
+  %body
+
+ 
+    %header.jumbotron.subhead
+      .container
+        %h1 Super Sekrit
+        %p.lead Send secret messages
+
+    #content.container
+
+    %script(src="jquery-1.9.1.min.js")
+    %script(src="bootstrap/js/bootstrap.min.js")
+    %script(src="sjcl.js")
+    - if ARGV[-1].match /debug/
+      %script(src="jquery.haml-1.3.js")
+      %script(src="sekritweb.js")
+    - else
+      %script(src="combined.js")
