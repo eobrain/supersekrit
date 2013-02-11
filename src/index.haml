@@ -48,13 +48,13 @@
             %form#create-sekrit.tab-pane.active
               %fieldset
                 %textarea#msg-in.input-block-level(placeholder="Type your message ...")
-                %label Copy this sekrit to send to someone
-                .well#sekrit-out
+                #secret-out-wrapper(style="display:none")
+                  %label Copy this sekrit to send to someone
+                  %textarea#sekrit-out.input-block-level(readonly)
             %form#read-sekrit.tab-pane
               %fieldset
                 %textarea#sekrit-in.input-block-level(placeholder="Paste a sekrit ...")
-                .well
-                  %pre#msg-out
+                #msg-out.alert.alert-success(style="display:none")
 
     %script(src="jquery-1.9.1.min.js")
     %script(src="bootstrap/js/bootstrap.min.js")

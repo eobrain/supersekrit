@@ -104,10 +104,14 @@ haveCirkle = ($content, cirkleString) ->
     $msgIn.keypress ->
       afterTick ->
         $('#sekrit-out').text cirkle.encrypt $msgIn.val()
+        $('#secret-out-wrapper').slideDown()
     $sekritIn = $ '#sekrit-in'
     $sekritIn.on 'paste', ->
       afterTick ->
-        $('#msg-out').text cirkle.decrypt $sekritIn.val()
+        $msgOut = $('#msg-out')
+        $msgOut.text cirkle.decrypt $sekritIn.val()
+        $msgOut.slideDown()
+
 
 
 #get string following hash
