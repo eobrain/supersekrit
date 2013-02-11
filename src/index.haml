@@ -13,7 +13,39 @@
         %h1 Super Sekrit
         %p.lead Send secret messages
 
-    #content.container
+    #no-circkle.container(style="display:none")
+      .row
+        .span3.hidden-phone
+        %form.span6
+          %fieldset
+            %legend, Create new Cirkle ...
+            %input#friendly(type="text" placeholder="Enter name (optional) ...")
+            %button#create.btn(type="submit") Create
+
+    #bad-circkle.container(style="display:none")
+      .row
+        %h2.span12 Bad Circle
+        %p.span12
+          Sorry
+          %q.cirkle-name
+          is not a valid cirkle. Did you copy it properly?
+
+    #have-circkle.container(style="display:none")
+      .row
+        %h2.span12 
+          %q.friendly-name
+          Cirkle
+      .row
+        %form.span6
+          %fieldset
+            %legend Create a Sekrit
+            %textarea#msg-in.span6(placeholder="Type your message ...")
+            .well#sekrit-out
+        %form.span6
+          %fieldset
+            %legend Read a Sekrit
+            %textarea#sekrit-in.span6(placeholder="Paste a sekrit ...")
+            .well#msg-out
 
     %script(src="jquery-1.9.1.min.js")
     %script(src="bootstrap/js/bootstrap.min.js")

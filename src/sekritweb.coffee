@@ -69,20 +69,6 @@ $ ->
   $(window).on 'hashchange', ->
     haveCirkle $content, fromHash()
 
-dontHaveCirkle = ($content) ->
-  $content.empty()
-  $content.haml [
-    ['.row'
-      ['.span3.hidden-phone']
-      ['%form.span6'
-        ['%fieldset'
-          ['%legend', 'Create new Cirkle ...']
-          ['%input#friendly', {
-            type:'text'
-            placeholder:'Enter name here (optional) ...'
-            }]
-          ['%button#create', {type:'submit', class:'btn'}, 'Create']]] ]]
-
   $('#create').click ->
     try
       friendly = $('#friendly').val() || 'Cirkle'
@@ -91,45 +77,36 @@ dontHaveCirkle = ($content) ->
       alert e
 
 
+dontHaveCirkle = ($content) ->
+  $('#no-circkle').slideDown()
+  $('#bad-circkle').slideUp()
+  $('#have-circkle').slideUp()
+
+
 haveCirkle = ($content, cirkleString) ->
 
-  [prefix,friendly] = (CIRKLE_CIPHER.decrypt cirkleString).split '|'
-  $content.empty()
-
-  $content.haml if prefix != CIRKLE_PREFIX
-    [
-      ['.row'
-        ['%h2.span12', 'Bad Circle']
-        ['%p.span12', """
-                     Sorry \"#{cirkle}\" is not a valid cirkle.
-                             Did you copy it properly?""" ]]]
+  $('.cirkle-name').text cirkleString
+  try
+    [prefix,friendly] = (CIRKLE_CIPHER.decrypt cirkleString).split '|'
+  catch e
+    prefix = e
+  $('#no-circkle').slideUp()
+  if prefix != CIRKLE_PREFIX
+    $('#bad-circkle').slideDown()
+    $('#have-circkle').slideUp()
   else
+    $('.friendly-name').text friendly
+    $('#bad-circkle').slideUp()
+    $('#have-circkle').slideDown()
     cirkle = new Cipher cirkleString
-    [
-      ['.row'
-        ['%h2.span12', "#{friendly} Cirkle"]]
-      ['.row'
-        ['%form.span6'
-          ['%fieldset'
-            ['%legend', 'Create a Sekrit']
-            ['%textarea#msg-in.span6', {
-              placeholder:'Type your message here ...' }]
-            ['.well#sekrit-out']]]
-        ['%form.span6'
-          ['%fieldset'
-            ['%legend', 'Read a Sekrit']
-            ['%textarea#sekrit-in.span6', {
-              placeholder:'Paste a sekrit here ...' }]
-            ['.well#msg-out']]]]]
-  $msgIn = $ '#msg-in'
-  $msgIn.keypress ->
-    afterTick ->
-      $('#sekrit-out').text cirkle.encrypt $msgIn.val()
-  $sekritIn = $ '#sekrit-in'
-  #$sekritIn.keypress ->
-  $sekritIn.on 'paste', ->
-    afterTick ->
-      $('#msg-out').text cirkle.decrypt $sekritIn.val()
+    $msgIn = $ '#msg-in'
+    $msgIn.keypress ->
+      afterTick ->
+        $('#sekrit-out').text cirkle.encrypt $msgIn.val()
+    $sekritIn = $ '#sekrit-in'
+    $sekritIn.on 'paste', ->
+      afterTick ->
+        $('#msg-out').text cirkle.decrypt $sekritIn.val()
 
 
 #get string following hash
