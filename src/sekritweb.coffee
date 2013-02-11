@@ -57,17 +57,8 @@ else
 CIRKLE_CIPHER = new Cipher 'supersekrit'
 
 $ ->
-  $content = $ '#content'
-
-  cirkleString = fromHash()
-
-  if !cirkleString
-    dontHaveCirkle $content
-  else
-    haveCirkle $content, cirkleString
-
-  $(window).on 'hashchange', ->
-    haveCirkle $content, fromHash()
+  $(window).on 'hashchange', main
+  main()
 
   $('#create').click ->
     try
@@ -76,6 +67,15 @@ $ ->
     catch e
       alert e
 
+main = ->
+  $content = $ '#content'
+
+  cirkleString = fromHash()
+
+  if !cirkleString || cirkleString.length==0
+    dontHaveCirkle $content
+  else
+    haveCirkle $content, cirkleString
 
 dontHaveCirkle = ($content) ->
   $('#no-circkle').slideDown()
@@ -95,6 +95,7 @@ haveCirkle = ($content, cirkleString) ->
     $('#bad-circkle').slideDown()
     $('#have-circkle').slideUp()
   else
+    $('title').text friendly
     $('.friendly-name').text friendly
     $('#bad-circkle').slideUp()
     $('#have-circkle').slideDown()

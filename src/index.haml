@@ -7,28 +7,30 @@
     %link(href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet")
   %body
 
- 
-    %header.jumbotron.subhead
-      .container
-        %h1 Super Sekrit
-        %p.lead Send secret messages
+    .navbar
+      .navbar-inner
+        %a.brand(href="#") Create a new Cirkle
 
     #no-circkle.container(style="display:none")
       .row
         .span3.hidden-phone
         %form.span6
           %fieldset
-            %legend, Create new Cirkle ...
+            %legend Create new Cirkle ...
             %input#friendly(type="text" placeholder="Enter name (optional) ...")
-            %button#create.btn(type="submit") Create
+            %button#create.btn.btn-large.btn-block.btn-primary(type="submit") Create
 
     #bad-circkle.container(style="display:none")
       .row
-        %h2.span12 Bad Circle
-        %p.span12
-          Sorry
-          %q.cirkle-name
-          is not a valid cirkle. Did you copy it properly?
+        .alert.alert-block.alert-error.fade.in.span12
+          %h2.span12 Bad Circle
+          %p.span12
+            Sorry
+            %q.cirkle-name
+            is not a valid cirkle. Did you copy it properly?
+          %p
+            %a.btn.btn-danger(href="#") OK
+
 
     #have-circkle.container(style="display:none")
       .row
@@ -36,16 +38,23 @@
           %q.friendly-name
           Cirkle
       .row
-        %form.span6
-          %fieldset
-            %legend Create a Sekrit
-            %textarea#msg-in.span6(placeholder="Type your message ...")
-            .well#sekrit-out
-        %form.span6
-          %fieldset
-            %legend Read a Sekrit
-            %textarea#sekrit-in.span6(placeholder="Paste a sekrit ...")
-            .well#msg-out
+        .tabbable.tabs-left.span12
+          %ul.nav.nav-tabs
+            %li.active
+              %a(href="#create-sekrit" data-toggle="tab") Create a Sekrit
+            %li
+              %a(href="#read-sekrit" data-toggle="tab") Read a Sekrit
+          .tab-content
+            %form#create-sekrit.tab-pane.active
+              %fieldset
+                %textarea#msg-in.input-block-level(placeholder="Type your message ...")
+                %label Copy this sekrit to send to someone
+                .well#sekrit-out
+            %form#read-sekrit.tab-pane
+              %fieldset
+                %textarea#sekrit-in.input-block-level(placeholder="Paste a sekrit ...")
+                .well
+                  %pre#msg-out
 
     %script(src="jquery-1.9.1.min.js")
     %script(src="bootstrap/js/bootstrap.min.js")
