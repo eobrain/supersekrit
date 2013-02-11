@@ -1,11 +1,8 @@
-web/bootstrap
-web/*.js
-chrome/bootstrap
-chrome/*.js
+/chrome/bootstrap
+/chrome/*.js
 *~
-web/HISTORY.txt
 s3.config
 node_modules
-test
-deploy
-web
+/test
+/deploy
+/web

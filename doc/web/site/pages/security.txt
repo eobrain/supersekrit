@@ -1,0 +1,22 @@
+Security
+========
+
+Super Sekrit uses strong encryption, namely the industry-standard AES
+algorithm.  We use a [JavaScript implementation of AES] [sjcl] from
+Dan Bone's research group at Stanford, who claim with some
+justification to have created the library with the best security that
+is practically available in JavaScript.
+
+The encryption runs in your browser, not on our servers.  That means
+that you can be assured that there is no way that we in Super Sekrit
+can see your messages. However it does mean that you are vulnerable to
+certain attacks by peoople who can control the network.  For example a
+sophisticated attacker could modify the code loaded from the
+supersekrit.com web site.
+
+We believe that Super Sekret's level of security is strong enough to
+give you privacy from general surveillance, and security from casual
+attack.  However it may not be sufficient to protect against a
+sophisticated attacker who is targetting you individually.
+
+[sjcl]: http://crypto.stanford.edu/sjcl/

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<!--
+# This file is part of the Glan system http://glawn.org
+#
+# Copyright (c) 2012,2013 Eamonn O'Brien-Strain All rights
+# reserved. This program and the accompanying materials are made
+# available under the terms of the Eclipse Public License v1.0 which
+# accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v10.html
+#
+# Contributors:
+#    Eamonn O'Brien-Strain  e@obrain.com - initial author
+-->
+
+<!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/style.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="container">
+
+          <div class="navbar">
+            <div class="navbar-inner">
+              <a class="brand" href="#home" title="Home">Home</a>
+              <ul class="nav">
+              </ul>
+            </div>
+          </div>
+
+          <div class="row">
+            <div id="sidebar" class="span3">
+              <a href="#home" title="Home">
+                <img id="logo" alt="Home"/>
+              </a>
+            </div>
+            <div class="span6">
+              <div id="content" >
+                <article class="page-GLAN"></article>
+              </div>
+              <div id="children"></div>
+            </div>
+            <div id="rotimg" class="span3">
+              <img id="rotimg-odd" data-imgdir="site/rotimg"/>
+              <img id="rotimg-even" data-imgdir="site/rotimg"/>
+            </div>
+          </div>
+          
+          <footer class="row">
+            <div class="span12">
+              <div id="footer" class="well">
+                <p class="pull-right"><small>Built with <a href="#GLAN">Gla<sup>w</sup>n</a></small></p>
+              </div>
+            </div>
+          </footer>
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/vendor/underscore-min.js"></script>
+        <!--script src="js/vendor/backbone-min.js"></script-->
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="js/vendor/markdown.js"></script>
+        <!--script src="js/vendor/jquery.history.js"></script-->
+        <script src="js/main.js"></script>
+        <script src="js/rotimg.js"></script>
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <!--script>
+            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script-->
+    </body>
+</html>

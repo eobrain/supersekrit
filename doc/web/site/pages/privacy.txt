@@ -1,0 +1,11 @@
+Privacy Policy
+==============
+
+Super Sekrit, by its nature, tries to preserve your privacy as much as
+possible.
+
+1. We keep no logs on the servers that host supersekrit.com, so we
+have no information on individual visits to our site
+1. We cannot see any of your messages, whether encrypted or not
+
+

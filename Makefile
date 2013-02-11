@@ -18,7 +18,7 @@ s3: build
 web/sekritweb.js: src/sekritweb.coffee
 	coffee         --output web --compile src/sekritweb.coffee 
 
-watch:
+watch: web/debug.html
 	coffee --watch --output web --compile src/sekritweb.coffee
 
 test-watch: libsync build/node_modules/testem

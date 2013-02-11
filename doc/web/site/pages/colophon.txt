@@ -1,0 +1,23 @@
+Colophon
+========
+
+Super Sekrit is built using the open source products below.  We thank
+the contributors for their generosity.
+
+1. [Bootstrap] [bo] as a front-end framework
+1. [Closure Compiler] [cc] for minifying JavaScript
+1. [Coffeescript] [co] as a better way of writing JavaScript
+1. [Glan] [gl] as a static CMS
+1. [JQuery] [jq] for basic DOM hanndling
+1. [JQuery-haml] [jh] for dynamic DOM creation from HAML
+1. [Stanford Javascript Crypto Library] [sj] for cryptography
+1. [Testem] [te] for JavaScript test-driven development
+
+[bo]: http://twitter.github.com/bootstrap/
+[cc]: https://developers.google.com/closure/compiler/
+[co]: http://coffeescript.org/
+[gl]: http://www.glawn.org
+[jq]: http://jquery.com/
+[jh]: https://github.com/creationix/jquery-haml
+[sj]: http://crypto.stanford.edu/sjcl/
+[te]: https://github.com/airportyh/testem

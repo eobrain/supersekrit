@@ -1,0 +1,38 @@
+article, nav {
+    display:none;
+    /*background-color: red;*/
+}
+article.current, nav.current {
+    display:block;
+    /*background-color: green;*/
+}    
+
+/*h1 {
+    font-size: 1em;
+    line-height: 1.2em;
+}
+h2 {
+    font-size: 0.8em;
+    line-height: 1em;
+}*/
+
+/*#sidebar, #children nav {
+  height: 40em;
+}*/
+
+nav li {
+     padding: 0.5em;
+}
+
+/*.at-bottom {
+    position: fixed;
+    bottom: 0;
+}*/
+
+#rotimg-odd, #rotimg-even {
+    position: absolute;
+}
+
+#rotimg {
+    height: 850px;
+}

@@ -9,16 +9,49 @@
 
     .navbar
       .navbar-inner
-        %a.brand(href="#") Create a new Cirkle
+        %a.brand(href="#") Super Sekret
 
     #no-circkle.container(style="display:none")
       .row
-        .span3.hidden-phone
+
         %form.span6
           %fieldset
             %legend Create new Cirkle ...
             %input#friendly(type="text" placeholder="Enter name (optional) ...")
             %button#create.btn.btn-large.btn-block.btn-primary(type="submit") Create
+
+        .span6
+          :markdown
+
+            You can use this site to create a _sekrit cirkle_, a
+            private page known only to you and your friends.
+
+            You can use the cirkle to write and read _sekrits_,
+            messages that can be freely shared on Facebook or anywhere
+            else without anyone being able to read them unless they
+            have access to the cirkle.
+
+            If you want to *send* a sekrit:
+
+            1. Create a cirkle, or go to a cirkle you bookmarked
+            previously.
+            1. Make sure your recipients also have bookmarked the same
+            cirkle page.
+            2. Type in some text, and you will see a sekrit being generated
+            3. Copy the generated sekrit from the page and paste it
+            a message to send to someone via e-mail, Facebook or any
+            other medium.
+
+            If you want to *read* a sekrit:
+
+            1. Go to the cirkle that this sekrit is part of.  (If you
+            have not previously been given access to the cirkle then
+            you will not be able to read the sekrit.)
+            1. Click "Read a Sekrit"
+            1. Copy the sekrit from the message you received and paste
+            it into text box on the cirkle page.
+            1. You should now see your message displayed.
+
 
     #bad-circkle.container(style="display:none")
       .row
