@@ -14,7 +14,12 @@ describe 'haveCirkle', ->
 
     runs ->
       $('#haveCirkle').empty()
-      $('body').haml [['#haveCirkle']]
+      $('body').haml [
+        ['#haveCirkle'
+          ['%textarea#msg-in']
+          ['#sekrit-out']
+          ['%textarea#sekrit-in']
+          ['#msg-out'] ]]
 
       haveCirkle $('#haveCirkle'),
                  'x9C3BlO72c3AhEuiJxkKeA,vJ88s4FMIkg,uPGZLGKnBCiU05TO-MLL-cBsQw0VD9HT'
