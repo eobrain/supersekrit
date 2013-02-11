@@ -62,7 +62,7 @@ $ ->
 
   $('#create').click ->
     try
-      friendly = $('#friendly').val() || 'Cirkle'
+      friendly = $('#friendly').val().trim() || 'Cirkle'
       window.location.hash = '#' + (createCirkle friendly)
     catch e
       alert e
@@ -103,14 +103,13 @@ haveCirkle = ($content, cirkleString) ->
     $msgIn = $ '#msg-in'
     $msgIn.keypress ->
       afterTick ->
-        $('#sekrit-out').text cirkle.encrypt $msgIn.val()
+        $('#sekrit-out').text cirkle.encrypt $msgIn.val().trim()
         $('#secret-out-wrapper').slideDown()
     $sekritIn = $ '#sekrit-in'
     $sekritIn.on 'paste', ->
       afterTick ->
-        $msgOut = $('#msg-out')
-        $msgOut.text cirkle.decrypt $sekritIn.val()
-        $msgOut.slideDown()
+        $('#msg-out').text cirkle.decrypt $sekritIn.val().trim()
+        $('#msg-out-wrapper').slideDown()
 
 
 
@@ -124,15 +123,3 @@ createCirkle = (friendly) ->
 
 
 afterTick = (func) ->  setTimeout func, 0
-
-
-
-window.docrypt = () ->
-  cirkle = $("#cirkle").val()
-  plaintext = $("#plaintext").val()
-  sekrit = crypt2sekrit sjcl.encrypt cirkle, plaintext
-  console.log "#{plaintext.length} -> #{sekrit.length} chars"
-  $("#crypttext").val sekrit
-  crypt = sekrit2crypt sekrit
-  console.log crypt
-  console.log "d(e(m))=#{ sjcl.decrypt cirkle, crypt }"
