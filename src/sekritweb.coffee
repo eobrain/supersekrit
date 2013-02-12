@@ -32,6 +32,7 @@ Cipher = ( (password) ->
     require -> ciphertext.length >= 46
     sjcl.decrypt password, sekrit2crypt ciphertext
 
+
   null
 )
 #END Cipher class
@@ -66,6 +67,10 @@ $ ->
       window.location.hash = '#' + (createCirkle friendly)
     catch e
       alert e
+
+  $('textarea[readonly]').mouseenter ->
+    $(@).select()
+    #$(@)[0].setSelectionRange 0, 9999
 
 main = ->
   $content = $ '#content'
@@ -103,7 +108,7 @@ haveCirkle = ($content, cirkleString) ->
     $('#have-circkle').slideDown()
     cirkle = new Cipher cirkleString
     $msgIn = $ '#msg-in'
-    $msgIn.keypress ->
+    $msgIn.keyup ->
       afterTick ->
         $('#sekrit-out').text cirkle.encrypt $msgIn.val().trim()
         $('#secret-out-wrapper').slideDown()
