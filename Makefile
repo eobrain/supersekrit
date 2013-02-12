@@ -28,7 +28,7 @@ clean:
 
 s3: cms build
 	git log > deploy/HISTORY.txt
-	s3cmd --config=s3.config '--add-header=Cache-Control:public max-age=60' --acl-public --exclude=\*~ sync deploy/ s3://$(BUCKET)
+	s3cmd --config=s3.config '--add-header=Cache-Control:public, max-age=60' --acl-public --exclude=\*~ sync deploy/ s3://$(BUCKET)
 	: view website at http://s3-$(REGION).amazonaws.com/$(BUCKET)/index.htm
 
 #############################################################################
