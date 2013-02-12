@@ -26,12 +26,15 @@ clean:
 	for dir in web chrome test; do rm -rf $$dir/*.js $$dir/bootstrap; done
 	rm -rf deploy build/node_modules web/debug.html
 
-s3: build
+s3: cms build
 	git log > deploy/HISTORY.txt
 	s3cmd --config=s3.config '--add-header=Cache-Control:public max-age=60' --acl-public --exclude=\*~ sync deploy/ s3://$(BUCKET)
 	: view website at http://s3-$(REGION).amazonaws.com/$(BUCKET)/index.htm
 
 #############################################################################
+
+cms:
+	cd doc; $(MAKE) deploy
 
 web/index.css:   src/index.css
 	rsync -a $< $@

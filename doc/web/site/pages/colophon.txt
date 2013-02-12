@@ -4,7 +4,7 @@ Colophon
 Super Sekrit is built using the open source products below.  We thank
 the contributors for their generosity.
 
-1. [Bootstrap] [bo] as a front-end framework
+1. [Bootstrap] [bo] as a front-end framework, including the [Glyphicons] [gi] icons
 1. [Closure Compiler] [cc] for minifying JavaScript
 1. [Coffeescript] [co] as a better way of writing JavaScript
 1. [Glan] [gl] as a static CMS
@@ -14,6 +14,7 @@ the contributors for their generosity.
 1. [Testem] [te] for JavaScript test-driven development
 
 [bo]: http://twitter.github.com/bootstrap/
+[gi]: http://glyphicons.com/
 [cc]: https://developers.google.com/closure/compiler/
 [co]: http://coffeescript.org/
 [gl]: http://www.glawn.org
