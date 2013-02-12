@@ -1,5 +1,4 @@
-Super Sekrit
-============
+# Home
 
 
-> [Create a Cirkle](http://www.supersekrit.com)
+# [Super Sekrit](http://www.supersekrit.com)
