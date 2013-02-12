@@ -62,7 +62,7 @@ $ ->
 
   $('#create').click ->
     try
-      friendly = $('#friendly').val().trim() || 'Cirkle'
+      friendly = $('#friendly').val().trim() || '(anonymous)'
       window.location.hash = '#' + (createCirkle friendly)
     catch e
       alert e
@@ -95,8 +95,10 @@ haveCirkle = ($content, cirkleString) ->
     $('#bad-circkle').slideDown()
     $('#have-circkle').slideUp()
   else
-    $('title').text friendly
+    $('title').text "Sekrit Cirkle: #{friendly}"
     $('.friendly-name').text friendly
+    $('#cirkle-link').val """Go to this web page to receive messages from the Sekrit Cirkle: #{friendly}
+#{window.location.href}"""
     $('#bad-circkle').slideUp()
     $('#have-circkle').slideDown()
     cirkle = new Cipher cirkleString

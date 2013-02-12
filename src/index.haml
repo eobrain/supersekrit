@@ -69,8 +69,14 @@
     #have-circkle.container(style="display:none")
       .row
         %h2.span12 
+          Sekrit Cirkle: 
           %q.friendly-name
-          Cirkle
+      .row
+        .span12
+          :markdown
+            Make sure you bookmark this web page (in a trusted
+            browser) so you can come back to this cirkle to create
+            or read sekrits.
       .row
         .tabbable.tabs-left.span12
           %ul.nav.nav-tabs
@@ -88,6 +94,15 @@
                     %i.icon-lock
                     Copy this sekrit to send to someone
                   %textarea#sekrit-out.input-block-level(readonly)
+                  :markdown
+
+                    <i class="icon-share"></i>The person you are
+                    sending to needs to know this web page address
+                    in order to read the sekrit.  Send them the
+                    following link seperately from the above sekrit.
+
+                  %textarea#cirkle-link.input-block-level(readonly)
+
             %form#read-sekrit.tab-pane
               %fieldset
                 %i.icon-lock
