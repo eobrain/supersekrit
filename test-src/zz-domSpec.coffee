@@ -22,11 +22,11 @@ describe 'haveCirkle', ->
           ['#msg-out'] ]]
 
       haveCirkle $('#haveCirkle'),
-                 'x9C3BlO72c3AhEuiJxkKeA,vJ88s4FMIkg,uPGZLGKnBCiU05TO-MLL-cBsQw0VD9HT'
+                 'Ox9C3BlO72c3AhEuiJxkKeA,vJ88s4FMIkg,uPGZLGKnBCiU05TO-MLL-cBsQw0VD9HT'
       expect( $('#sekrit-out').text() ).toBe ''
       expect( $('#msg-out').text() ).toBe ''
       $('#msg-in').text 'this is the message'
-      $('#msg-in').keypress()
+      $('#msg-in').keyup()
 
     waitsFor ->
       $('#sekrit-out').text().length >= 46

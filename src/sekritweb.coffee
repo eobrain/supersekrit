@@ -1,15 +1,21 @@
 CIRKLE_PREFIX   = 'supersekrit'
 
 #BEGIN Cipher class
-Cipher = ( (password) ->
+Cipher = ( (prefix, suffix, password) ->
+
+  SEKRIT_PATT = new RegExp "#{prefix}([A-Za-z0-9_,-]{46,})#{suffix}"
 
   toWebsafe = (s) ->
-    s.replace( /\+/g, '-' )
-     .replace( /\//g, '_' )
+    s = s.replace( /\+/g, '-' )
+         .replace( /\//g, '_' )
+    "#{prefix}#{s}#{suffix}"
 
   fromWebsafe = (s) ->
-    s.replace( /\-/g, '+' )
-     .replace( /_/g , '/' )
+    sekS = SEKRIT_PATT.exec s
+    if sekS == null
+      throw "Cannot decrypt: expect something of the form \"#{prefix}...#{suffix}\""
+    sekS[1].replace( /\-/g, '+' )
+           .replace( /_/g , '/' )
 
   sekrit2crypt = (s) ->
     [iv, salt, ct] = fromWebsafe(s).split ','
@@ -55,7 +61,7 @@ else
   require = (predicate) ->
 
 
-CIRKLE_CIPHER = new Cipher 'supersekrit'
+CIRKLE_CIPHER = new Cipher 'O', '', 'supersekrit'
 
 $ ->
   $(window).on 'hashchange', main
@@ -64,7 +70,11 @@ $ ->
   $('#create').click ->
     try
       friendly = $('#friendly').val().trim() || '(anonymous)'
-      window.location.hash = '#' + (createCirkle friendly)
+      cirkleString = createCirkle friendly
+      #$('#topnav').haml [
+      #  ['%li', {href: cirkleString}, friendly]
+      #]
+      window.location.hash = '#' + cirkleString
     catch e
       alert e
 
@@ -106,7 +116,7 @@ haveCirkle = ($content, cirkleString) ->
 #{window.location.href}"""
     $('#bad-circkle').slideUp()
     $('#have-circkle').slideDown()
-    cirkle = new Cipher cirkleString
+    cirkle = new Cipher 'Shh:', '!', cirkleString
     $msgIn = $ '#msg-in'
     $msgIn.keyup ->
       afterTick ->
@@ -115,8 +125,12 @@ haveCirkle = ($content, cirkleString) ->
     $sekritIn = $ '#sekrit-in'
     $sekritIn.on 'paste', ->
       afterTick ->
-        $('#msg-out').text cirkle.decrypt $sekritIn.val().trim()
-        $('#msg-out-wrapper').slideDown()
+        sekrit = $sekritIn.val().trim()
+        try
+          $('#msg-out').text cirkle.decrypt sekrit
+          $('#msg-out-wrapper').slideDown()
+        catch e
+          alert e
 
 
 
