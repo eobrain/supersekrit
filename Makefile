@@ -10,10 +10,11 @@ compile: web/sekritweb.js libsync
 watch: web/debug.html web/index.css
 	coffee --watch --output web --compile src/sekritweb.coffee
 
-test-watch: libsync build/node_modules/testem
-	mkdir -p test
-	coffee --watch --bare --output test --compile src/sekritweb.coffee test-src/*.coffee &
+tdd: libsync build/node_modules/testem
+	coffee --bare --output test --compile src/sekritweb.coffee test-src/*.coffee
 	cd test; ../build/node_modules/.bin/testem -g
+test-watch: libsync build/node_modules/testem
+	coffee --watch --bare --output test --compile src/sekritweb.coffee test-src/*.coffee
 
 config:
 	:

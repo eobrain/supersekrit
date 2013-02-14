@@ -11,7 +11,18 @@
     .navbar
       .navbar-inner
         %a.brand(href="#") Super Sekret
-
+        .nav.pull-right
+          %a.btn.dropdown-toggle(data-toggle="dropdown" href="#")
+            Feedback        
+            %span.caret
+          %ul.dropdown-menu
+            %li
+              %a(href="http://www.facebook.com/pages/Super-Sekrit/397703613659960") via Facebook
+            %li
+              %a(href="http://twitter.com/supersekrit") via Twitter 
+            %li
+              %a(href="mailto:feedback@supersekrit.com") via E-Mail
+             
     #no-circkle.container(style="display:none")
       .row
 

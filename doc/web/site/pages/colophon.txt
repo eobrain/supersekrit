@@ -13,6 +13,12 @@ the contributors for their generosity.
 1. [Stanford Javascript Crypto Library] [sj] for cryptography
 1. [Testem] [te] for JavaScript test-driven development
 
+We also thank the following artists for providing their work under a
+liberal Creative Commons licence:
+
+1. Lele for ["ssh" ] [sh]
+
+
 [bo]: http://twitter.github.com/bootstrap/
 [gi]: http://glyphicons.com/
 [cc]: https://developers.google.com/closure/compiler/
@@ -22,3 +28,5 @@ the contributors for their generosity.
 [jh]: https://github.com/creationix/jquery-haml
 [sj]: http://crypto.stanford.edu/sjcl/
 [te]: https://github.com/airportyh/testem
+
+[sh]: http://www.arteyfotografia.com.ar/3148/fotos/32667/
