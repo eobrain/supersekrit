@@ -7,7 +7,7 @@ debug: web/debug.html web/index.css compile
 
 compile: web/sekritweb.js libsync
 
-watch: web/debug.html web/index.css
+watch: web/debug.html web/index.css libsync
 	coffee --watch --output web --compile src/sekritweb.coffee
 
 tdd: libsync build/node_modules/testem
@@ -52,11 +52,13 @@ web/sekritweb.js: src/sekritweb.coffee
 build/node_modules/testem:
 	cd build; npm install testem
 
+I=img/talk_shows_on_mute_by_katie_tegtmeyer-whitened.jpg
+
 libsync: 
-	rsync -a lib/*.js lib/bootstrap chrome
-	rsync -a lib/*.js lib/bootstrap web
-	rsync -a lib/*.js lib/bootstrap test
-	rsync -a lib/*.js lib/bootstrap deploy
+#	rsync -a lib/*.js lib/bootstrap chrome
+	rsync -a lib/*.js lib/bootstrap $I web
+	rsync -a lib/*.js lib/bootstrap    test
+	rsync -a lib/*.js lib/bootstrap $I deploy
 
 
 

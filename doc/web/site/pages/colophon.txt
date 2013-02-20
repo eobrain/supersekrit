@@ -17,6 +17,7 @@ We also thank the following artists for providing their work under a
 liberal Creative Commons licence:
 
 1. Lele for ["ssh" ] [sh]
+1. Katie Tegtmeyer for ["Talk Shows On Mute"] [ts]
 
 
 [bo]: http://twitter.github.com/bootstrap/
@@ -30,3 +31,4 @@ liberal Creative Commons licence:
 [te]: https://github.com/airportyh/testem
 
 [sh]: http://www.arteyfotografia.com.ar/3148/fotos/32667/
+[ts]: http://www.flickr.com/photos/katietegtmeyer/67865829/in/faves-eob/

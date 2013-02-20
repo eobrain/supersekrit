@@ -1,2 +1,9 @@
-textarea[readonly] {cursor:text}
-/*#sekrit-out {cursor:text}*/
+textarea[readonly] {
+    cursor:text;
+}
+
+body {
+    background-image:url('talk_shows_on_mute_by_katie_tegtmeyer-whitened.jpg');
+    background-size: cover;
+}
+
