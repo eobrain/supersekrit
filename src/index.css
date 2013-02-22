@@ -5,5 +5,15 @@ textarea[readonly] {
 body {
     background-image:url('talk_shows_on_mute_by_katie_tegtmeyer-whitened.jpg');
     background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
+
+
+/* https://github.com/twitter/bootstrap/issues/4117 */
+/*@media (max-width: 979px)
+.navbar-fixed-bottom {
+  margin-top: 18px;
+  position: fixed;
+}*/
 
