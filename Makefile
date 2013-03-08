@@ -52,7 +52,10 @@ web/sekritweb.js: src/sekritweb.coffee
 build/node_modules/testem:
 	cd build; npm install testem
 
-I=img/talk_shows_on_mute_by_katie_tegtmeyer-whitened.jpg
+I=\
+ img/talk_shows_on_mute_by_katie_tegtmeyer-whitened.jpg\
+ img/talk_shows_on_mute_by_katie_tegtmeyer-icon-32x32.png\
+ img/talk_shows_on_mute_by_katie_tegtmeyer-icon-60x32.jpg
 
 libsync: 
 #	rsync -a lib/*.js lib/bootstrap chrome
