@@ -1,7 +1,21 @@
 BUCKET=www.supersekrit.com
 REGION=us-west-1
 
-build: deploy/index.html deploy/index.css deploy/combined.js
+AWWW=android/assets/www
+
+build:         deploy/index.html  deploy/index.css deploy/combined.js
+
+build-android: $(AWWW)/index.html $(AWWW)/index.css $(AWWW)/combined.js $(AWWW)/js/index.js 
+
+android/bin/SuperSekrit-debug.apk: build-android
+	cd android; ant debug
+
+installed-on-emulator: android/bin/SuperSekrit-debug.apk
+	adb uninstall com.supersekrit
+	adb install $<
+
+emulator:
+	emulator -wipe-data -scale 0.6667 -avd SII
 
 debug: web/debug.html web/index.css compile
 
@@ -39,7 +53,9 @@ cms:
 
 web/index.css:   src/index.css
 	rsync -a $< $@
-deploy/index.css: src/index.css
+deploy/index.css:  src/index.css
+	rsync -a $< $@
+$(AWWW)/index.css: src/index.css
 	rsync -a $< $@
 
 
@@ -47,7 +63,9 @@ deploy/index.css: src/index.css
 #	coffee $@ --compile src/content_script.coffee
 
 web/sekritweb.js: src/sekritweb.coffee
-	coffee         --output web --compile src/sekritweb.coffee 
+	coffee --output `dirname $@` --compile $<
+$(AWWW)/js/index.js: src/android/index.coffee
+	coffee --output `dirname $@` --compile $<
 
 build/node_modules/testem:
 	cd build; npm install testem
@@ -62,6 +80,7 @@ libsync:
 	rsync -a lib/*.js lib/bootstrap $I web
 	rsync -a lib/*.js lib/bootstrap    test
 	rsync -a lib/*.js lib/bootstrap $I deploy
+	rsync -a lib/*.js lib/bootstrap $I $(AWWW)
 
 
 
@@ -70,10 +89,15 @@ web/debug.html: src/index.haml
 deploy/index.html: src/index.haml
 	mkdir -p deploy
 	haml --format html5 --style ugly $< $@
+$(AWWW)/index.html: src/index.haml
+	haml --format html5 --style ugly $< $@
 
 deploy/combined.js: compile
 	mkdir -p deploy
 	java -jar build/compiler.jar --js web/jquery.haml-1.3.js --js web/sekritweb.js --js_output_file $@
+
+$(AWWW)/combined.js: deploy/combined.js
+	cp $< $@
 
 
 

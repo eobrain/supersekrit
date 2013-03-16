@@ -6,3 +6,12 @@ node_modules
 /test
 /deploy
 /web
+/android/assets/www/bootstrap
+/android/assets/www/combined.js
+/android/assets/www/index.css
+/android/assets/www/jquery-1.9.1.min.js
+/android/assets/www/jquery.haml-1.3.js
+/android/assets/www/sjcl.js
+/android/assets/www/talk_shows_on_mute_by_katie_tegtmeyer-*
+/android/bin
+/android/gen
