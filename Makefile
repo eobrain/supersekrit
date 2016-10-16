@@ -39,13 +39,6 @@ tdd: libsync build/node_modules/testem
 test-watch: libsync build/node_modules/testem
 	coffee --watch --bare --output test --compile src/sekritweb.coffee test-src/*.coffee
 
-config:
-	:
-	: Go key Access Key ID and Secret Access Key go to
-	:    https://portal.aws.amazon.com/gp/aws/securityCredentials
-	:
-	s3cmd --config=s3.config --configure
-
 clean:
 	for dir in web chrome test; do rm -rf $$dir/*.js $$dir/bootstrap; done
 	rm -rf deploy build/node_modules web/debug.html
@@ -53,12 +46,22 @@ clean:
 s3: cms build
 	git log > deploy/HISTORY.txt
 	s3cmd --config=s3.config '--add-header=Cache-Control:public, max-age=3600' --acl-public --exclude=\*~ sync deploy/ s3://$(BUCKET)
-	: view website at http://s3-$(REGION).amazonaws.com/$(BUCKET)/index.htm
+	: view website at http://s3-$(REGION).amazonaws.com/$(BUCKET)
 
 #############################################################################
 
-cms:
+cms: doc/s3.config
 	cd doc; $(MAKE) deploy
+
+s3.config:
+	:
+	: Go key Access Key ID and Secret Access Key go to
+	:    https://portal.aws.amazon.com/gp/aws/securityCredentials
+	:
+	s3cmd --config=$@ --configure
+
+doc/s3.config: s3.config
+	cp s3.config $@
 
 web/index.css:   src/index.css
 	rsync -a $< $@

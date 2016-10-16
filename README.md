@@ -8,7 +8,7 @@ Control who sees your messages.
 Send messages to select friends on social networking sites, knowing no
 one else can read them. Don't rely on the site's privacy settings.
 
-This code is deployed at http://www.supersekrit.com/#
+This code is deployed at <http://www.supersekrit.com>
 
 Or you can host it yourself as described below.
 
@@ -17,6 +17,8 @@ Prerequisites
 -------------
 
     sudo apt-get install ruby-haml ruby-dev
+
+Also, install Java from <https://java.com/download>
 
 
 Running Locally
@@ -30,7 +32,16 @@ In another terminal
 
     (cd web; python -m SimpleHTTPServer)
 
-View locally at http://localhost:8000/debug.html
+View locally at <http://localhost:8000/debug.html>
+
+Deploying
+---------
+
+    make s3
+
+Eventually (after HTTP caching has timed out), the fact that the new
+version is deployed can be verified by looking at
+<http://www.supersekrit.com/HISTORY.txt>
 
 
 License
