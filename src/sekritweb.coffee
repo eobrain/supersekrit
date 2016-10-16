@@ -25,10 +25,11 @@ Cipher = ( (prefix, suffix, password) ->
     "{iv:\"#{iv}\",salt:\"#{salt}\",ct:\"#{ct}\"}"
 
   crypt2sekrit = (c) ->
-    toWebsafe c.replace( /^{iv:\"/ , ''  )
-               .replace( '",salt:"', ',' )
-               .replace( '",ct:"'  , ',' )
-               .replace( /\"}$/    , ''  )
+    commaSeparated = c.replace( /^{iv:\"/ , ''  )
+                      .replace( /",salt:"/, ',' )
+                      .replace( /",ct:"/  , ',' )
+                      .replace( /\"}$/    , ''  )
+    toWebsafe commaSeparated
 
   @encrypt = (plaintext) ->
     crypt2sekrit sjcl.encrypt password, plaintext
