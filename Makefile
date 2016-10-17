@@ -40,8 +40,8 @@ test-watch: libsync build/node_modules/testem
 	coffee --watch --bare --output test --compile src/sekritweb.coffee test-src/*.coffee
 
 clean:
-	for dir in web chrome test; do rm -rf $$dir/*.js $$dir/bootstrap; done
-	rm -rf deploy build/node_modules web/debug.html
+	#for dir in chrome; do rm -rf $$dir/*.js $$dir/bootstrap $$dir/*.png $$dir/*.jpg; done
+	rm -rf deploy build/node_modules web test
 
 s3: cms build
 	git log > deploy/HISTORY.txt
@@ -97,6 +97,7 @@ libsync:
 
 
 web/debug.html: src/index.haml
+	mkdir -p web
 	haml --format html5 $< $@
 deploy/index.html: src/index.haml
 	mkdir -p deploy
