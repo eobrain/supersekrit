@@ -14,7 +14,7 @@ AWWW=android/assets/www
 
 build:         deploy/index.html  deploy/index.css deploy/combined.js
 
-build-android: $(AWWW)/index.html $(AWWW)/index.css $(AWWW)/combined.js $(AWWW)/js/index.js 
+build-android: $(AWWW)/index.html $(AWWW)/index.css $(AWWW)/combined.js # $(AWWW)/js/index.js 
 
 android/bin/SuperSekrit-debug.apk: build-android
 	cd android; ant debug
@@ -76,8 +76,8 @@ $(AWWW)/index.css: src/index.css
 
 web/sekritweb.js: src/sekritweb.coffee
 	coffee --output `dirname $@` --compile $<
-$(AWWW)/js/index.js: src/android/index.coffee
-	coffee --output `dirname $@` --compile $<
+#$(AWWW)/js/index.js: src/android/index.coffee
+#	coffee --output `dirname $@` --compile $<
 
 build/node_modules/testem:
 	cd build; npm install testem
