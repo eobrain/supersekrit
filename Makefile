@@ -30,14 +30,14 @@ debug: web/debug.html web/index.css compile
 
 compile: web/sekritweb.js libsync
 
-watch: web/debug.html web/index.css libsync
-	coffee --watch --output web --compile src/sekritweb.coffee
+watch: web/debug.html web/index.css libsync types
+	tsc --watch --outDir web src/sekritweb.ts
 
-tdd: libsync build/node_modules/testem
-	coffee --bare --output test --compile src/sekritweb.coffee test-src/*.coffee
+tdd: libsync build/node_modules/testem types
+	tsc --outDir test src/sekritweb.ts test-src/*.ts
 	cd test; ../build/node_modules/.bin/testem -g
-test-watch: libsync build/node_modules/testem
-	coffee --watch --bare --output test --compile src/sekritweb.coffee test-src/*.coffee
+test-watch: libsync build/node_modules/testem types
+	tsc --watch --outDir test src/sekritweb.ts test-src/*.ts
 
 clean:
 	#for dir in chrome; do rm -rf $$dir/*.js $$dir/bootstrap $$dir/*.png $$dir/*.jpg; done
@@ -71,16 +71,23 @@ $(AWWW)/index.css: src/index.css
 	rsync -a $< $@
 
 
-#chrome/content_script.js: src/content_script.coffee
-#	coffee $@ --compile src/content_script.coffee
+#chrome/content_script.js: src/content_script.ts
+#	tsc $@ src/content_script.ts
 
-web/sekritweb.js: src/sekritweb.coffee
-	coffee --output `dirname $@` --compile $<
-#$(AWWW)/js/index.js: src/android/index.coffee
-#	coffee --output `dirname $@` --compile $<
+web/sekritweb.js: src/sekritweb.ts types
+	tsc --outDir `dirname $@` $<
+#$(AWWW)/js/index.js: src/android/index.ts types
+#	tsc --outDir `dirname $@` $<
+
+types: build/node_modules/sjcl-typescript-definitions build/node_modules/@types/jquery
+
 
 build/node_modules/testem:
 	cd build; npm install testem
+build/node_modules/sjcl-typescript-definitions:
+	cd build; npm install sjcl-typescript-definitions
+build/node_modules/@types/jquery:
+	cd build; npm install @types/jquery
 
 I=\
  img/talk_shows_on_mute_by_katie_tegtmeyer-whitened.jpg\
