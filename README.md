@@ -17,6 +17,7 @@ Prerequisites
 -------------
 
     sudo apt-get install ruby-haml ruby-dev
+    npm install -g typescript
 
 Also, install Java from <https://java.com/download>
 
