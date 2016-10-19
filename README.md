@@ -35,6 +35,12 @@ In another terminal
 
 View locally at <http://localhost:8000/debug.html>
 
+To build and view the documention pages do
+
+    (cd doc; make server)
+
+and view at <http://localhost:4444>
+
 Deploying
 ---------
 

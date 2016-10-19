@@ -6,12 +6,12 @@ the contributors for their generosity.
 
 1. [Bootstrap] [bo] as a front-end framework, including the [Glyphicons] [gi] icons
 1. [Closure Compiler] [cc] for minifying JavaScript
-1. [Coffeescript] [co] as a better way of writing JavaScript
 1. [Glan] [gl] as a static CMS
 1. [JQuery] [jq] for basic DOM hanndling
 1. [JQuery-haml] [jh] for dynamic DOM creation from HAML
 1. [Stanford Javascript Crypto Library] [sj] for cryptography
 1. [Testem] [te] for JavaScript test-driven development
+1. [Typescript] [ts] as a better way of writing JavaScript
 
 We also thank the following artists for providing their work under a
 liberal Creative Commons licence:
@@ -23,7 +23,7 @@ liberal Creative Commons licence:
 [bo]: http://twitter.github.com/bootstrap/
 [gi]: http://glyphicons.com/
 [cc]: https://developers.google.com/closure/compiler/
-[co]: http://coffeescript.org/
+[ts]: https://www.typescriptlang.org/
 [gl]: http://www.glawn.org
 [jq]: http://jquery.com/
 [jh]: https://github.com/creationix/jquery-haml

@@ -19,4 +19,7 @@ give you privacy from general surveillance, and security from casual
 attack.  However it may not be sufficient to protect against a
 sophisticated attacker who is targetting you individually.
 
+All the Super Sekrit code is open source and can be examined [on Github][github]
+
 [sjcl]: http://crypto.stanford.edu/sjcl/
+[github]: https://github.com/eobrain/supersekrit
