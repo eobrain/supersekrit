@@ -1,45 +1,61 @@
 /// <reference path="../build/node_modules/sjcl-typescript-definitions/sjcl/sjcl.d.ts" />
 /// <reference path="../build/node_modules/@types/jquery/index.d.ts" />
 
-
 (() => {
   const CIRKLE_PREFIX = 'supersekrit';
 
-  const Cipher = ((prefix, suffix, password) => {
-    var crypt2sekrit, fromWebsafe, sekrit2crypt, toWebsafe;
-    const SEKRIT_PATT = new RegExp(prefix + "([A-Za-z0-9_,-]{46,})" + suffix);
-    toWebsafe = (s) => {
+  class Cipher {
+    private sekritPatt;
+
+    constructor (private prefix, private suffix, private password) {
+      this.sekritPatt = new RegExp(this.prefix + "([A-Za-z0-9_,-]{46,})" + this.suffix);
+    }
+
+    private toWebsafe(s) {
       s = s.replace(/\+/g, '-').replace(/\//g, '_');
-      return "" + prefix + s + suffix;
-    };
-    fromWebsafe = (s) => {
-      const sekS = SEKRIT_PATT.exec(s);
+      return "" + this.prefix + s + this.suffix;
+    }
+
+    private fromWebsafe(s) {
+      const sekS = this.sekritPatt.exec(s);
       if (sekS === null) {
-        throw "Cannot decrypt: expect something of the form \"" + prefix + "..." + suffix + "\"";
+        throw "Cannot decrypt: expect something of the form \"" + this.prefix + "..." + this.suffix + "\"";
       }
       return sekS[1].replace(/\-/g, '+').replace(/_/g, '/');
-    };
-    sekrit2crypt = (s) => {
-      const ref = fromWebsafe(s).split(',');
+    }
+
+    private sekrit2crypt(s) : sjcl.SjclCipherEncrypted {
+      const ref = this.fromWebsafe(s).split(',');
       const iv = ref[0];
       const salt = ref[1];
       const ct = ref[2];
       assert(() => iv.length === 22);
       assert(() => salt.length === 11);
       assert(() => ct.length >= 11);
-      return "{iv:\"" + iv + "\",salt:\"" + salt + "\",ct:\"" + ct + "\"}";
-    };
-    crypt2sekrit = (c) => {
-      const commaSeparated = c.replace(/^{iv:\"/, '').replace(/",salt:"/, ',').replace(/",ct:"/, ',').replace(/\"}$/, '');
-      return toWebsafe(commaSeparated);
-    };
-    this.encrypt = (plaintext) => crypt2sekrit(sjcl.encrypt(password, plaintext));
-    this.decrypt = (ciphertext) => {
+      const result = "{iv:\"" + iv + "\",salt:\"" + salt + "\",ct:\"" + ct + "\"}";
+      return result as any as sjcl.SjclCipherEncrypted;
+    }
+
+    private crypt2sekrit = (c) => {
+      const commaSeparated = c
+          .replace(/^{iv:\"/, '')
+          .replace(/",salt:"/, ',')
+          .replace(/",ct:"/, ',')
+          .replace(/\"}$/, '');
+      return this.toWebsafe(commaSeparated);
+    }
+
+    public encrypt(plaintext) {
+      return this.crypt2sekrit(sjcl.encrypt(this.password, plaintext));
+    }
+
+    public decrypt(ciphertext) {
       require(() => ciphertext);
       require(() => ciphertext.length >= 46);
-      return sjcl.decrypt(password, sekrit2crypt(ciphertext));
-    };
-  });
+      return sjcl.decrypt(this.password, this.sekrit2crypt(ciphertext));
+    }
+
+  }
 
   let assert, require;
   if (window.location.href.slice(0, 5) === 'file:') {
@@ -108,7 +124,9 @@
     }
     $('title').text("Sekrit Cirkle: " + friendly);
     $('.friendly-name').text(friendly);
-    $('#cirkle-link').val("Go to this web page to receive messages from the Sekrit Cirkle: " + friendly + "\n" + window.location.href);
+    $('#cirkle-link').val(
+      "Go to this web page to receive messages from the Sekrit Cirkle: " +
+          friendly + "\n" + window.location.href);
     $('#bad-circkle').slideUp();
     $('#have-circkle').slideDown();
     const cirkle = new Cipher('Shh:', '!', cirkleString);
@@ -127,7 +145,10 @@
           $('#msg-out').text(cirkle.decrypt(sekrit));
           $('#msg-out-wrapper').slideDown();
         } catch (e) {
-          alert(e);
+          // TODO(eob) fix this hack
+          if (e.message !== "ccm: tag doesn't match") {
+            alert(e);
+          }
         }
       });
     });
