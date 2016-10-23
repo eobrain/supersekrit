@@ -33,15 +33,34 @@ compile: web/sekritweb.js libsync
 watch: web/debug.html web/index.css libsync types
 	tsc --watch --outDir web src/sekritweb.ts
 
-tdd: libsync build/node_modules/testem types
-	tsc --outDir test src/sekritweb.ts test-src/*.ts
-	cd test; ../build/node_modules/.bin/testem -g
-test-watch: libsync build/node_modules/testem types
+view:
+	(sleep 1; xdg-open http://localhost:9999/debug.html)&
+	cd web; python -m SimpleHTTPServer 9999
+
+tdd: compile
+	tsc jasmine/spec/*.ts
+
+tdd-view:
+	(sleep 1; xdg-open http://localhost:8888/jasmine/SpecRunner.html)&
+	python -m SimpleHTTPServer 8888
+
+
+#tdd: libsync build/node_modules/jasmine/bin/jasmine.js
+#	tsc --outDir spec src/sekritweb.ts test-src/*.ts
+#	tsc --outDir spec src/sekritweb.ts src/*.ts
+#	cp lib/*.js spec
+#	build/node_modules/jasmine/bin/jasmine.js
+#tdd: libsync build/node_modules/testem types
+#	tsc --outDir test src/sekritweb.ts test-src/*.ts
+#	cd test; ../build/node_modules/.bin/testem -g
+#test-watch: libsync build/node_modules/testem types
+#	tsc --watch --outDir test src/sekritweb.ts test-src/*.ts
+test-watch: libsync types
 	tsc --watch --outDir test src/sekritweb.ts test-src/*.ts
 
 clean:
 	#for dir in chrome; do rm -rf $$dir/*.js $$dir/bootstrap $$dir/*.png $$dir/*.jpg; done
-	rm -rf deploy build/node_modules web test
+	rm -rf deploy build/node_modules web spec
 
 s3: cms build
 	git log > deploy/HISTORY.txt
@@ -84,6 +103,8 @@ types: build/node_modules/sjcl-typescript-definitions build/node_modules/@types/
 
 build/node_modules/testem:
 	cd build; npm install testem
+build/node_modules/jasmine/bin/jasmine.js:
+	cd build; npm install jasmine
 build/node_modules/sjcl-typescript-definitions:
 	cd build; npm install sjcl-typescript-definitions
 build/node_modules/@types/jquery:

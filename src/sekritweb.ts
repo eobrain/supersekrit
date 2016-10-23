@@ -11,10 +11,10 @@
 /// <reference path="../build/node_modules/sjcl-typescript-definitions/sjcl/sjcl.d.ts" />
 /// <reference path="../build/node_modules/@types/jquery/index.d.ts" />
 
-(() => {
+namespace supersekrit {
   const CIRKLE_PREFIX = 'supersekrit';
 
-  class Cipher {
+  export class Cipher {
     private sekritPatt;
 
     constructor (private prefix, private suffix, private password) {
@@ -46,7 +46,7 @@
       return result as any as sjcl.SjclCipherEncrypted;
     }
 
-    private crypt2sekrit = (c) => {
+    private crypt2sekrit = c => {
       const commaSeparated = c
           .replace(/^{iv:\"/, '')
           .replace(/",salt:"/, ',')
@@ -70,19 +70,19 @@
   let assert, require;
   if (window.location.href.slice(0, 5) === 'file:') {
     console.log('Test Environment. Assertions enabled');
-    assert = (predicate) => {
+    assert = predicate => {
       if (!predicate()) {
         throw "Assertion failed. " + predicate;
       }
     };
-    require = (predicate) => {
+    require = predicate => {
       if (!predicate()) {
         throw "Precondition failed. " + predicate;
       }
     };
   } else {
-    assert = (predicate) => {};
-    require = (predicate) => {};
+    assert = predicate => {};
+    require = predicate => {};
   }
 
   const CIRKLE_CIPHER = new Cipher('O', '', 'supersekrit');
@@ -93,30 +93,30 @@
     $('#create').click(() => {
       try {
         const friendly = $('#friendly').val().trim() || '(anonymous)';
-        const cirkleString = createCirkle(friendly);
-        return window.location.hash = '#' + cirkleString;
+        window.location.hash = '#' + createCirkle(friendly);
       } catch (e) {
-        return alert(e);
+        alert(e);
       }
     });
-    return $('textarea[readonly]').mouseenter(() => $(this).select());
+    const $textarea = $('textarea[readonly]');
+    $textarea.mouseenter(() => $textarea.select());
   });
 
   const main = () => {
     const $content = $('#content');
     const cirkleString = fromHash();
-    return (!cirkleString || cirkleString.length === 0)
+    (!cirkleString || cirkleString.length === 0)
         ? dontHaveCirkle($content)
         : haveCirkle($content, cirkleString);
   };
 
-  const dontHaveCirkle = ($content) => {
+  const dontHaveCirkle = $content => {
     $('#no-circkle').slideDown();
     $('#bad-circkle').slideUp();
     return $('#have-circkle').slideUp();
   };
 
-  const haveCirkle = ($content, cirkleString) => {
+  export const haveCirkle = ($content, cirkleString) => {
     $('.cirkle-name').text(cirkleString);
     let prefix, friendly;
     try {
@@ -130,7 +130,7 @@
     $('#no-circkle').slideUp();
     if (prefix !== CIRKLE_PREFIX) {
       $('#bad-circkle').slideDown();
-      return $('#have-circkle').slideUp();
+      $('#have-circkle').slideUp();
     }
     $('title').text("Sekrit Cirkle: " + friendly);
     $('.friendly-name').text(friendly);
@@ -142,14 +142,14 @@
     const cirkle = new Cipher('Shh:', '!', cirkleString);
     const $msgIn = $('#msg-in');
     $msgIn.keyup(() => {
-      return afterTick(() => {
+      afterTick(() => {
         $('#sekrit-out').text(cirkle.encrypt($msgIn.val().trim()));
-        return $('#secret-out-wrapper').slideDown();
+        $('#secret-out-wrapper').slideDown();
       });
     });
     const $sekritIn = $('#sekrit-in');
-    return $sekritIn.on('paste', () => {
-      return afterTick(() => {
+    $sekritIn.on('paste', () => {
+      afterTick(() => {
         const sekrit = $sekritIn.val().trim();
         try {
           $('#msg-out').text(cirkle.decrypt(sekrit));
@@ -166,8 +166,8 @@
 
   const fromHash = () => window.location.hash.substring(1);
 
-  const createCirkle = (friendly) => CIRKLE_CIPHER.encrypt(CIRKLE_PREFIX + "|" + friendly);
+  const createCirkle = friendly => CIRKLE_CIPHER.encrypt(CIRKLE_PREFIX + "|" + friendly);
 
-  const afterTick = (func) => setTimeout(func, 0);
+  const afterTick = func => setTimeout(func, 0);
 
-}).call(this);
+}
