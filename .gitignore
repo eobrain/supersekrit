@@ -3,7 +3,8 @@
 *~
 s3.config
 node_modules
-/test
+/jasmine/spec/*Spec.js
+/src/sekritweb.js
 /deploy
 /web
 /android/assets/www/bootstrap

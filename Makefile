@@ -118,7 +118,6 @@ I=\
 libsync: 
 #	rsync -a lib/*.js lib/bootstrap chrome
 	rsync -a lib/*.js lib/bootstrap $I web
-	rsync -a lib/*.js lib/bootstrap    test
 	rsync -a lib/*.js lib/bootstrap $I deploy
 	rsync -a lib/*.js lib/bootstrap $I $(AWWW)
 
