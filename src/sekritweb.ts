@@ -85,7 +85,7 @@ namespace supersekrit {
     require = predicate => {};
   }
 
-  const CIRKLE_CIPHER = new Cipher('O', '', 'supersekrit');
+  const cirkleCipher = new Cipher('O', '', 'supersekrit');
 
   $(() => {
     $(window).on('hashchange', main);
@@ -120,7 +120,7 @@ namespace supersekrit {
     $('.cirkle-name').text(cirkleString);
     let prefix, friendly;
     try {
-      const ref = (CIRKLE_CIPHER.decrypt(cirkleString)).split('|')
+      const ref = (cirkleCipher.decrypt(cirkleString)).split('|')
       prefix = ref[0]
       friendly = ref[1];
     } catch (e) {
@@ -164,10 +164,16 @@ namespace supersekrit {
     });
   };
 
-  const fromHash = () => window.location.hash.substring(1);
+  function fromHash() {
+    return window.location.hash.substring(1);
+  }
 
-  const createCirkle = friendly => CIRKLE_CIPHER.encrypt(CIRKLE_PREFIX + "|" + friendly);
+  function createCirkle(friendly) {
+    return cirkleCipher.encrypt(CIRKLE_PREFIX + "|" + friendly);
+  }
 
-  const afterTick = func => setTimeout(func, 0);
+  function afterTick(func) {
+    setTimeout(func, 0);
+  }
 
 }
