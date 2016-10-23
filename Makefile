@@ -60,7 +60,7 @@ test-watch: libsync types
 
 clean:
 	#for dir in chrome; do rm -rf $$dir/*.js $$dir/bootstrap $$dir/*.png $$dir/*.jpg; done
-	rm -rf deploy build/node_modules web spec
+	rm -rf deploy build/node_modules web jasmine/spec/*Spec.js
 
 s3: cms build
 	git log > deploy/HISTORY.txt
