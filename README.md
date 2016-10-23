@@ -50,6 +50,11 @@ Eventually (after HTTP caching has timed out), the fact that the new
 version is deployed can be verified by looking at
 <http://www.supersekrit.com/HISTORY.txt>
 
+To deploy the documentation:
+
+    (cd doc; make deploy)
+
+
 
 License
 -------
