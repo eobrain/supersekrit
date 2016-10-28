@@ -41,8 +41,8 @@ To build and view the documention pages do
 
 and view at <http://localhost:4444>
 
-Deploying
----------
+Deploying To S3
+---------------
 
     make s3
 
@@ -54,7 +54,19 @@ To deploy the documentation:
 
     (cd doc; make deploy)
 
+Deploy to Firebase Hosting
+--------------------------
 
+One time only::
+
+    npm install -g firebase-tools
+    firebase login
+    firebase init
+
+
+Each time:
+
+    make firebase
 
 License
 -------

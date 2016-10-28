@@ -67,6 +67,9 @@ s3: cms build
 	s3cmd --config=s3.config '--add-header=Cache-Control:public, max-age=3600' --acl-public --exclude=\*~ sync deploy/ s3://$(BUCKET)
 	: view website at http://s3-$(REGION).amazonaws.com/$(BUCKET)
 
+firebase: build
+	firebase deploy
+
 #############################################################################
 
 cms: doc/s3.config
