@@ -15,18 +15,21 @@ namespace supersekrit {
   const CIRKLE_PREFIX = 'supersekrit';
 
   export class Cipher {
-    private sekritPatt;
+    private readonly sekritPatt;
 
-    constructor (private prefix, private suffix, private password) {
+    constructor (
+      private readonly prefix: string,
+      private readonly suffix: string,
+      private readonly password: string)
+    {
       this.sekritPatt = new RegExp(this.prefix + "([A-Za-z0-9_,-]{46,})" + this.suffix);
     }
 
-    private toWebsafe(s) {
-      s = s.replace(/\+/g, '-').replace(/\//g, '_');
-      return "" + this.prefix + s + this.suffix;
+    private toWebsafe(s :string) : string{
+      return this.prefix + s.replace(/\+/g, '-').replace(/\//g, '_') + this.suffix;
     }
 
-    private fromWebsafe(s) {
+    private fromWebsafe(s: string) : string{
       const sekS = this.sekritPatt.exec(s);
       if (sekS === null) {
         throw "Cannot decrypt: expect something of the form \"" + this.prefix + "..." + this.suffix + "\"";
@@ -34,7 +37,7 @@ namespace supersekrit {
       return sekS[1].replace(/\-/g, '+').replace(/_/g, '/');
     }
 
-    private sekrit2crypt(s) : sjcl.SjclCipherEncrypted {
+    private sekrit2crypt(s: string) : sjcl.SjclCipherEncrypted {
       const ref = this.fromWebsafe(s).split(',');
       const iv = ref[0];
       const salt = ref[1];
@@ -46,8 +49,8 @@ namespace supersekrit {
       return result as any as sjcl.SjclCipherEncrypted;
     }
 
-    private crypt2sekrit = c => {
-      const commaSeparated = c
+    private crypt2sekrit(c: sjcl.SjclCipherEncrypted): string{
+      const commaSeparated = (c as any as string)
           .replace(/^{iv:\"/, '')
           .replace(/",salt:"/, ',')
           .replace(/",ct:"/, ',')
@@ -55,11 +58,11 @@ namespace supersekrit {
       return this.toWebsafe(commaSeparated);
     }
 
-    public encrypt(plaintext) {
+    public encrypt(plaintext: string): string {
       return this.crypt2sekrit(sjcl.encrypt(this.password, plaintext));
     }
 
-    public decrypt(ciphertext) {
+    public decrypt(ciphertext: string): string {
       require(() => ciphertext);
       require(() => ciphertext.length >= 46);
       return sjcl.decrypt(this.password, this.sekrit2crypt(ciphertext));
@@ -70,12 +73,12 @@ namespace supersekrit {
   let assert, require;
   if (window.location.href.slice(0, 5) === 'file:') {
     console.log('Test Environment. Assertions enabled');
-    assert = predicate => {
+    assert = (predicate: () => boolean): void => {
       if (!predicate()) {
         throw "Assertion failed. " + predicate;
       }
     };
-    require = predicate => {
+    require = (predicate: () => boolean): void => {
       if (!predicate()) {
         throw "Precondition failed. " + predicate;
       }
@@ -102,21 +105,23 @@ namespace supersekrit {
     $textarea.mouseenter(() => $textarea.select());
   });
 
-  const main = () => {
+  function main(): void {
     const $content = $('#content');
     const cirkleString = fromHash();
-    (!cirkleString || cirkleString.length === 0)
-        ? dontHaveCirkle($content)
-        : haveCirkle($content, cirkleString);
-  };
+    if (!cirkleString || cirkleString.length === 0) {
+      dontHaveCirkle($content);
+    } else {
+      haveCirkle($content, cirkleString);
+    }
+  }
 
-  const dontHaveCirkle = $content => {
+  function dontHaveCirkle($content): void {
     $('#no-circkle').slideDown();
     $('#bad-circkle').slideUp();
-    return $('#have-circkle').slideUp();
-  };
+    $('#have-circkle').slideUp();
+  }
 
-  export const haveCirkle = ($content, cirkleString) => {
+  export function haveCirkle($content, cirkleString): void {
     $('.cirkle-name').text(cirkleString);
     let prefix, friendly;
     try {
@@ -141,15 +146,15 @@ namespace supersekrit {
     $('#have-circkle').slideDown();
     const cirkle = new Cipher('Shh:', '!', cirkleString);
     const $msgIn = $('#msg-in');
-    $msgIn.keyup(() => {
-      afterTick(() => {
+    $msgIn.keyup((): void => {
+      afterTick((): void => {
         $('#sekrit-out').text(cirkle.encrypt($msgIn.val().trim()));
         $('#secret-out-wrapper').slideDown();
       });
     });
     const $sekritIn = $('#sekrit-in');
     $sekritIn.on('paste', () => {
-      afterTick(() => {
+      afterTick((): void => {
         const sekrit = $sekritIn.val().trim();
         try {
           $('#msg-out').text(cirkle.decrypt(sekrit));
@@ -162,17 +167,17 @@ namespace supersekrit {
         }
       });
     });
-  };
+  }
 
-  function fromHash() {
+  function fromHash(): string {
     return window.location.hash.substring(1);
   }
 
-  function createCirkle(friendly) {
+  function createCirkle(friendly): string {
     return cirkleCipher.encrypt(CIRKLE_PREFIX + "|" + friendly);
   }
 
-  function afterTick(func) {
+  function afterTick(func): void {
     setTimeout(func, 0);
   }
 
