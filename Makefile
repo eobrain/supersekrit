@@ -37,7 +37,7 @@ view:
 	(sleep 1; xdg-open http://localhost:9999/debug.html)&
 	cd web; python -m SimpleHTTPServer 9999
 
-tdd: compile
+test: compile
 	tsc jasmine/spec/*.ts
 
 tdd-view:
