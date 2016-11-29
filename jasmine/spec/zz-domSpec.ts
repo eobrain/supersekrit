@@ -10,8 +10,8 @@
 
 /// <reference path="../../lib/jasmine.d.ts" />
 /// <reference path="../../src/sekritweb.ts" />
-/// <reference path="../../build/node_modules/sjcl-typescript-definitions/sjcl/sjcl.d.ts" />
-/// <reference path="../../build/node_modules/@types/jquery/index.d.ts" />
+/// <reference path="../../node_modules/sjcl-typescript-definitions/sjcl/sjcl.d.ts" />
+/// <reference path="../../node_modules/@types/jquery/index.d.ts" />
 
 declare interface JQuery {
   haml(h: any[]): void;
