@@ -8,8 +8,8 @@
 // Eamonn O'Brien-Strain e@obrain.com - initial author
 
 
-/// <reference path="../build/node_modules/sjcl-typescript-definitions/sjcl/sjcl.d.ts" />
-/// <reference path="../build/node_modules/@types/jquery/index.d.ts" />
+/// <reference path="../node_modules/sjcl-typescript-definitions/sjcl/sjcl.d.ts" />
+/// <reference path="../node_modules/@types/jquery/index.d.ts" />
 
 namespace supersekrit {
   const CIRKLE_PREFIX = 'supersekrit';
