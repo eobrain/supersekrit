@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "test": "tsc jasmine/spec/*.ts"
+  }
+}
