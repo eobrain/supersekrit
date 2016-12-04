@@ -40,7 +40,7 @@ view:
 test: compile
 	tsc jasmine/spec/*.ts
 
-tdd-view:
+tdd-view: test
 	(sleep 1; xdg-open http://localhost:8888/jasmine/SpecRunner.html)&
 	python -m SimpleHTTPServer 8888
 

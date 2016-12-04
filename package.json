@@ -8,8 +8,9 @@
     "karma-jasmine": "^1.0.2",
     "karma-opera-launcher": "^1.0.0",
     "karma-safari-launcher": "^1.0.0",
-    "typescript": "^2.0.10",
-    "testem": "^1.13.0"
+    "karma-typescript-preprocessor": "^0.3.0",
+    "testem": "^1.13.0",
+    "typescript": "^2.0.10"
   },
   "dependencies": {
     "@types/jquery": "^2.0.34",
