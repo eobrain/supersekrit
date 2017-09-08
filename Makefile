@@ -101,7 +101,10 @@ web/sekritweb.js: src/sekritweb.ts types
 #$(AWWW)/js/index.js: src/android/index.ts types
 #	tsc --outDir `dirname $@` $<
 
-types: build/node_modules/sjcl-typescript-definitions build/node_modules/@types/jquery
+types: \
+  build/node_modules/sjcl-typescript-definitions \
+  build/node_modules/@types/jquery \
+  build/node_modules/@types/js-cookie
 
 
 build/node_modules/testem:
@@ -110,15 +113,19 @@ build/node_modules/jasmine/bin/jasmine.js:
 	cd build; npm install jasmine
 build/node_modules/sjcl-typescript-definitions:
 	cd build; npm install sjcl-typescript-definitions
+build/node_modules/js-cookie:
+	cd build; npm install js-cookie
 build/node_modules/@types/jquery:
 	cd build; npm install @types/jquery
+build/node_modules/@types/js-cookie:
+	cd build; npm install @types/js-cookie
 
 I=\
  img/talk_shows_on_mute_by_katie_tegtmeyer-whitened.jpg\
  img/talk_shows_on_mute_by_katie_tegtmeyer-icon-32x32.png\
  img/talk_shows_on_mute_by_katie_tegtmeyer-icon-60x32.jpg
 
-libsync: 
+libsync: build/node_modules/js-cookie
 #	rsync -a lib/*.js lib/bootstrap chrome
 	rsync -a lib/*.js lib/bootstrap $I web
 	rsync -a lib/*.js lib/bootstrap $I deploy

@@ -21,7 +21,7 @@ namespace supersekrit {
       private readonly prefix: string,
       private readonly suffix: string,
       private readonly password: string) {
-      this.sekritPatt = new RegExp(this.prefix + '([A-Za-z0-9_,-]{46,})' + this.suffix);
+      this.sekritPatt = new RegExp(`${this.prefix}([A-Za-z0-9_,-]{46,})${this.suffix}`);
     }
 
     private toWebsafe(s: string): string {
@@ -31,20 +31,17 @@ namespace supersekrit {
     private fromWebsafe(s: string): string {
       const sekS = this.sekritPatt.exec(s);
       if (sekS === null) {
-        throw 'Cannot decrypt: expect something of the form "' + this.prefix + '"..."' + this.suffix + '"';
+        throw `Cannot decrypt: expect something of the form "${this.prefix}"..."${this.suffix}"`;
       }
       return sekS[1].replace(/\-/g, '+').replace(/_/g, '/');
     }
 
     private sekrit2crypt(s: string): sjcl.SjclCipherEncrypted {
-      const ref = this.fromWebsafe(s).split(',');
-      const iv = ref[0];
-      const salt = ref[1];
-      const ct = ref[2];
+      const [iv, salt, ct] = this.fromWebsafe(s).split(',');
       assert(() => iv.length === 22);
       assert(() => salt.length === 11);
       assert(() => ct.length >= 11);
-      const result = '{iv:"' + iv + '",salt:"' + salt + '",ct:"' + ct + '"}';
+      const result = `{iv:"${iv}",salt:"${salt}",ct:"${ct}"}`;
       return result as any as sjcl.SjclCipherEncrypted;
     }
 
@@ -79,7 +76,7 @@ namespace supersekrit {
     };
     require = (predicate: () => boolean): void => {
       if (!predicate()) {
-        throw 'Precondition failed. ' + predicate;
+        throw `Precondition failed. ${predicate}`;
       }
     };
   } else {
@@ -104,7 +101,8 @@ namespace supersekrit {
     $textarea.mouseenter(() => $textarea.select());
   });
 
-  function main(): void {
+  // function main(): void {
+  const main = (): void => {
     const $content = $('#content');
     const cirkleString = fromHash();
     if (!cirkleString || cirkleString.length === 0) {
@@ -114,7 +112,7 @@ namespace supersekrit {
     }
   }
 
-  function dontHaveCirkle($content): void {
+  const dontHaveCirkle = ($content)=> {
     $('#no-circkle').slideDown();
     $('#bad-circkle').slideUp();
     $('#have-circkle').slideUp();
@@ -124,9 +122,7 @@ namespace supersekrit {
     $('.cirkle-name').text(cirkleString);
     let prefix, friendly;
     try {
-      const ref = (cirkleCipher.decrypt(cirkleString)).split('|');
-      prefix = ref[0];
-      friendly = ref[1];
+      [prefix, friendly] = (cirkleCipher.decrypt(cirkleString)).split('|');
     } catch (e) {
       prefix = e;
       friendly = 'ERROR decrypting';
@@ -168,16 +164,7 @@ namespace supersekrit {
     });
   }
 
-  function fromHash(): string {
-    return window.location.hash.substring(1);
-  }
-
-  function createCirkle(friendly): string {
-    return cirkleCipher.encrypt(CIRKLE_PREFIX + '|' + friendly);
-  }
-
-  function afterTick(func): void {
-    setTimeout(func, 0);
-  }
-
+  const fromHash = () => window.location.hash.substring(1);
+  const createCirkle = (friendly) => cirkleCipher.encrypt(`${CIRKLE_PREFIX}|${friendly}`);
+  const afterTick = (func) => setTimeout(func, 0);
 }
