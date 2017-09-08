@@ -13,9 +13,9 @@
     "typescript": "^2.0.10"
   },
   "dependencies": {
-    "@types/jquery": "^2.0.34",
-    "@types/js-cookie": "2.1.4",
-    "sjcl-typescript-definitions": "^1.0.1-1",
-    "js-cookie": "2.1.4"
+    "@types/jquery": "^2.0.48",
+    "@types/js-cookie": "^2.1.0",
+    "js-cookie": "^2.1.0",
+    "sjcl-typescript-definitions": "^1.0.1-1"
   }
 }
