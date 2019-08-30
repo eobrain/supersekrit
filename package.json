@@ -15,7 +15,7 @@
   "dependencies": {
     "@types/jquery": "^2.0.48",
     "@types/js-cookie": "^2.1.0",
-    "js-cookie": "^2.1.0",
+    "js-cookie": "^2.2.1",
     "sjcl-typescript-definitions": "^1.0.1-1"
   }
 }

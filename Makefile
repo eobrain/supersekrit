@@ -1,4 +1,4 @@
-# Copyright (c) 2014 Eamonn O'Brien-Strain All rights reserved. This
+# Copyright (c) 2014-2019 Eamonn O'Brien-Strain All rights reserved. This
 # program and the accompanying materials are made available under the
 # terms of the Eclipse Public License v1.0 which accompanies this
 # distribution, and is available at
@@ -30,37 +30,22 @@ debug: web/debug.html web/index.css compile
 
 compile: web/sekritweb.js libsync
 
-watch: web/debug.html web/index.css libsync types
-	tsc --watch --outDir web src/sekritweb.ts
+watch: web/debug.html web/index.css libsync
+	: open
+	: http://localhost:8888/web/debug.html
+	python -m SimpleHTTPServer 8888
 
 view:
 	(sleep 1; xdg-open http://localhost:9999/debug.html)&
 	cd web; python -m SimpleHTTPServer 9999
 
-test: compile
-	tsc jasmine/spec/*.ts
-
-tdd-view: test
-	(sleep 1; xdg-open http://localhost:8888/jasmine/SpecRunner.html)&
+tdd-view:
+	: open
+	: http://localhost:8888/jasmine/SpecRunner.html
 	python -m SimpleHTTPServer 8888
 
-
-#tdd: libsync build/node_modules/jasmine/bin/jasmine.js
-#	tsc --outDir spec src/sekritweb.ts test-src/*.ts
-#	tsc --outDir spec src/sekritweb.ts src/*.ts
-#	cp lib/*.js spec
-#	build/node_modules/jasmine/bin/jasmine.js
-#tdd: libsync build/node_modules/testem types
-#	tsc --outDir test src/sekritweb.ts test-src/*.ts
-#	cd test; ../build/node_modules/.bin/testem -g
-#test-watch: libsync build/node_modules/testem types
-#	tsc --watch --outDir test src/sekritweb.ts test-src/*.ts
-test-watch: libsync types
-	tsc --watch --outDir test src/sekritweb.ts test-src/*.ts
-
 clean:
-	#for dir in chrome; do rm -rf $$dir/*.js $$dir/bootstrap $$dir/*.png $$dir/*.jpg; done
-	rm -rf deploy build/node_modules web jasmine/spec/*Spec.js
+	rm -rf deploy build/node_modules web
 
 s3: cms build
 	git log > deploy/HISTORY.txt
@@ -91,20 +76,6 @@ deploy/index.css:  src/index.css
 	rsync -a $< $@
 $(AWWW)/index.css: src/index.css
 	rsync -a $< $@
-
-
-#chrome/content_script.js: src/content_script.ts
-#	tsc $@ src/content_script.ts
-
-web/sekritweb.js: src/sekritweb.ts types
-	tsc --outDir `dirname $@` $<
-#$(AWWW)/js/index.js: src/android/index.ts types
-#	tsc --outDir `dirname $@` $<
-
-types: \
-  build/node_modules/sjcl-typescript-definitions \
-  build/node_modules/@types/jquery \
-  build/node_modules/@types/js-cookie
 
 
 build/node_modules/testem:

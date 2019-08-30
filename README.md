@@ -17,7 +17,7 @@ Prerequisites
 -------------
 
     sudo apt-get install ruby-haml ruby-dev
-    npm install -g typescript
+    sudo gem install rouge
 
 Also, install Java from <https://java.com/download>
 
@@ -28,10 +28,6 @@ Running Locally
 
     make watch
 
-
-In another terminal
-
-    (cd web; python -m SimpleHTTPServer)
 
 View locally at <http://localhost:8000/debug.html>
 

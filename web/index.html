@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2014 Eamonn O'Brien-Strain All rights reserved. This
+program and the accompanying materials are made available under the
+terms of the Eclipse Public License v1.0 which accompanies this
+distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
+Contributors:
+Eamonn O'Brien-Strain e@obrain.com - initial author
+-->
+<html>
+
+<head>
+    <title>Super Sekrit</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <meta content='telephone=no' name='format-detection'>
+    <meta content='width=device-width, initial-scale=1.0' name='viewport'>
+    <link href='talk_shows_on_mute_by_katie_tegtmeyer-icon-32x32.png' rel='icon' type='image/png'>
+    <link href='bootstrap/css/bootstrap.min.css' media='screen' rel='stylesheet'>
+    <link href='bootstrap/css/bootstrap-responsive.min.css' rel='stylesheet'>
+    <link href='index.css' rel='stylesheet'>
+</head>
+
+<body>
+    <div class='navbar'>
+        <div class='navbar-inner'>
+            <a class='brand' href='#'>
+                <img src='talk_shows_on_mute_by_katie_tegtmeyer-icon-60x32.jpg'>
+                Super Sekrit
+            </a>
+            <div class='nav pull-right'>
+                <a class='btn dropdown-toggle' data-toggle='dropdown' href='#'>
+                    Feedback
+                    <span class='caret'></span>
+                </a>
+                <ul class='dropdown-menu'>
+                    <li>
+                        <a href='http://www.facebook.com/pages/Super-Sekrit/397703613659960'>via Facebook</a>
+                    </li>
+                    <li>
+                        <a href='http://twitter.com/supersekrit'>via Twitter</a>
+                    </li>
+                    <li>
+                        <a href='mailto:feedback@supersekrit.com'>via E-Mail</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class='container' id='no-circkle' style='display:none'>
+        <div class='row'>
+            <form class='span6'>
+                <fieldset>
+                    <legend>Create new Cirkle ...</legend>
+                    <input id='friendly' placeholder='Enter name (optional) ...' type='text'>
+                    <button class='btn btn-large btn-block btn-primary' id='create' type='submit'>Create</button>
+                </fieldset>
+            </form>
+            <div class='span6'>
+                <div class='hero-unit'>
+                    <h2>Take back control of your privacy</h2>
+
+                    <p>Control who sees your messages.</p>
+
+                    <p>Send messages to select friends on social networking
+                        sites, knowing no one else can read them. Don&#39;t rely on
+                        the site&#39;s privacy settings.</p>
+                </div>
+                <p>You can use this site to create a <em>sekrit cirkle</em>, a
+                    private page known only to you and your friends.</p>
+
+                <p>You can use the cirkle to write and read <em>sekrits</em>,
+                    messages that can be freely shared on social networking
+                    sites or anywhere else without anyone being able to read
+                    them unless they have access to the cirkle.</p>
+
+                <p>If you want to <em>send</em> a sekrit:</p>
+
+                <ol>
+                    <li>Create a cirkle, or go to a cirkle you bookmarked
+                        previously.</li>
+                    <li>Make sure your recipients also have bookmarked the same
+                        cirkle page.</li>
+                    <li>Type in some text, and you will see a sekrit being generated</li>
+                    <li>Copy the generated sekrit from the page and paste it
+                        a message to send to someone via e-mail, a social netwotking site, or any
+                        other medium.</li>
+                </ol>
+
+                <p>If you want to <em>read</em> a sekrit:</p>
+
+                <ol>
+                    <li>Go to the cirkle that this sekrit is part of. (If you
+                        have not previously been given access to the cirkle then
+                        you will not be able to read the sekrit.)</li>
+                    <li>Click &quot;Read a Sekrit&quot;</li>
+                    <li>Copy the sekrit from the message you received and paste
+                        it into text box on the cirkle page.</li>
+                    <li>You should now see your message displayed.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class='container' id='bad-circkle' style='display:none'>
+        <div class='row'>
+            <div class='alert alert-block alert-error fade in span12'>
+                <h2 class='span12'>Bad Circle</h2>
+                <p class='span12'>
+                    Sorry
+                    <q class='cirkle-name'></q>
+                    is not a valid cirkle. Did you copy it properly?
+                </p>
+                <p>
+                    <a class='btn btn-danger' href='#'>OK</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class='container' id='have-circkle' style='display:none'>
+        <div class='row'>
+            <h2 class='span12'>
+                Sekrit Cirkle:
+                <q class='friendly-name'></q>
+            </h2>
+        </div>
+        <div class='row'>
+            <div class='span12'>
+                <p>Make sure you bookmark this web page (in a trusted
+                    browser) so you can come back to this cirkle to create
+                    or read sekrits.</p>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='tabbable tabs-left span12'>
+                <ul class='nav nav-tabs'>
+                    <li class='active'>
+                        <a data-toggle='tab' href='#create-sekrit'>Create a Sekrit</a>
+                    </li>
+                    <li>
+                        <a data-toggle='tab' href='#read-sekrit'>Read a Sekrit</a>
+                    </li>
+                </ul>
+                <div class='tab-content'>
+                    <form class='tab-pane active' id='create-sekrit'>
+                        <fieldset>
+                            <i class='icon-pencil'></i>
+                            <textarea class='input-block-level' id='msg-in'
+                                placeholder='Type your message ...'></textarea>
+                            <div id='secret-out-wrapper' style='display:none'>
+                                <label>
+                                    <i class='icon-lock'></i>
+                                    Copy this sekrit to send to someone
+                                </label>
+                                <textarea class='input-block-level' id='sekrit-out' readonly></textarea>
+                                <p><i class="icon-share"></i>The person you are
+                                    sending to needs to know this web page address
+                                    in order to read the sekrit. Send them the
+                                    following link seperately from the above sekrit.</p>
+                                <textarea class='input-block-level' id='cirkle-link' readonly></textarea>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <form class='tab-pane' id='read-sekrit'>
+                        <fieldset>
+                            <i class='icon-lock'></i>
+                            <textarea class='input-block-level' id='sekrit-in'
+                                placeholder='Paste a sekrit ...'></textarea>
+                            <div id='msg-out-wrapper' style='display:none'>
+                                <i class='icon-eye-open'></i>
+                                <div class='alert alert-success' id='msg-out'></div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='navbar navbar-fixed-bottom'>
+        <div class='navbar-inner'>
+            <ul class='nav'>
+                <li>
+                    <a href='http://doc.supersekrit.com/#terms'>Terms of Service</a>
+                </li>
+                <li>
+                    <a href='http://doc.supersekrit.com/#privacy'>Privacy Policy</a>
+                </li>
+                <li>
+                    <a href='http://doc.supersekrit.com/#security'>Security</a>
+                </li>
+                <li>
+                    <a href='http://doc.supersekrit.com/#colophon'>Colophon</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src='jquery-1.9.1.min.js'></script>
+    <script src='bootstrap/js/bootstrap.min.js'></script>
+    <script src='sjcl.js'></script>
+    <!--script src='combined.js'></script-->
+    <script src='jquery.haml-1.3.js'></script>
+    <script src='sekritweb.js'></script>
+</body>
+
+</html>
