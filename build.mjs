@@ -1,4 +1,4 @@
-// Copyright (c) 2014 Eamonn O'Brien-Strain All rights reserved. This
+// Copyright (c) 2014,2020 Eamonn O'Brien-Strain All rights reserved. This
 // program and the accompanying materials are made available under the
 // terms of the Eclipse Public License v1.0 which accompanies this
 // distribution, and is available at
@@ -8,7 +8,6 @@
 // Eamonn O'Brien-Strain e@obrain.com - initial author
 
 import { dirname } from 'path'
-import build from '../bajel/index.js'
 
 const BUCKET = 'www.supersekrit.com'
 const REGION = 'us-west-1'
