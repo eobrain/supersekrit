@@ -1,6 +1,8 @@
 Super Sekrit
 ============
 
+[![Join the chat at https://gitter.im/supersekrit/Lobby](https://badges.gitter.im/supersekrit/Lobby.svg)](https://gitter.im/supersekrit/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Take back control of your privacy
 
 Control who sees your messages.
